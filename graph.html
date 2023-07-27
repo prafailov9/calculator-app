@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Graphing Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div id="calculator">
+        <label for="expression">Function:</label>
+        <input type="text" id="expression" placeholder="Enter your function">
+
+        <label for="lowerBound">Lower bound:</label>
+        <input type="number" id="lowerBound" placeholder="Enter lower bound">
+
+        <label for="upperBound">Upper bound:</label>
+        <input type="number" id="upperBound" placeholder="Enter upper bound">
+
+        <label for="steps">Steps:</label>
+        <input type="number" id="steps" placeholder="Enter number of steps">
+
+        <button onclick="graph()">Graph</button>
+    </div>
+
+    <div id="graph-container">
+        <div id="graph">
+            <canvas id="graphCanvas" style="width: 100%; height: 100%;"></canvas>
+        </div>
+    </div>
+
+    <script src="graph.js"></script>
+</body>
+</html>

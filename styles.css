@@ -1,0 +1,70 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #36393f;
+    color: white;
+    text-align: center;
+    /* Add display flex for centering */
+    display: flex;
+    /* Adjust direction */
+    flex-direction: column;
+    /* Add centering */
+    align-items: center;
+    justify-content: center;
+}
+
+#calculator {
+    /* Adjust width to auto */
+    width: auto;
+    max-width: 300px;
+    padding: 20px;
+    border: 1px solid #2c2f33;
+    border-radius: 8px;
+    background-color: #2c2f33;
+    box-shadow: 0px 10px 15px rgba(0,0,0,0.1);
+}
+
+input[type="text"], input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    border: 1px solid #7289da;
+    border-radius: 4px;
+    background-color: #40444b;
+    color: white;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    background-color: #7289da;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#result {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#graph-container {
+    /* Adjust the container to desired width */
+    width: 95%;
+    /* Ensure it doesn't exceed the viewport */
+    max-width: 95vw;
+    margin: auto;
+}
+
+#graph {
+    /* Adjust size to fill the container */
+    width: 100%;
+    height: 70vh;
+    /* Adjust other styles as desired */
+    background-color: #40444b;
+    border: 1px solid #7289da;
+    border-radius: 4px;
+}

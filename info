@@ -1,0 +1,5 @@
+#Run these commands directly in CMD
+1. create env: py -3 -m venv .venv
+2. activate env: .venv\Scripts\activate
+3. install flask: pip install Flask
+4. update pip: python.exe -m pip install --upgrade pip
