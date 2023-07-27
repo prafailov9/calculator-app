@@ -17,7 +17,6 @@ class FunctionEvaluator:
         "tanh": math.tanh,
         "asinh": math.asinh,
         "acosh": math.acosh,
-        "atanh": math.atanh,
         "sec": lambda x: 1 / math.cos(x),
         "csc": lambda x: 1 / math.sin(x),
         "cot": lambda x: 1 / math.tan(x)

@@ -1,5 +1,28 @@
 let myChart = null;
 
+function showLoading() {
+    document.getElementById("spinner").style.display = "block";
+    document.getElementById("overlay").style.display = "block"; // Show the overlay
+}
+
+function hideLoading() {
+    document.getElementById("spinner").style.display = "none";
+    document.getElementById("overlay").style.display = "none"; // Hide the overlay
+}
+
+function showOverlay() {
+    let overlay = document.getElementById("overlay");
+    overlay.style.display = "block";
+    setTimeout(() => overlay.style.opacity = "0.5", 10);  // Transition to semi-transparent
+}
+
+function hideOverlay() {
+    let overlay = document.getElementById("overlay");
+    overlay.style.opacity = "0";  // Transition to fully transparent
+    // Wait for the transition to finish before hiding the overlay
+    setTimeout(() => overlay.style.display = "none", 500);
+}
+
 function drawGraph(data) {
     let canvas = document.getElementById('graphCanvas');
     let ctx = canvas.getContext('2d');
@@ -27,6 +50,8 @@ function drawGraph(data) {
             }]
         }
     });
+    hideLoading(); // Hide the spinner and overlay after the chart has been drawn
+    hideOverlay();
 }
 
 function graph() {
@@ -34,7 +59,6 @@ function graph() {
     const funcExpression = document.getElementById("expression").value;
     const rangeStart = document.getElementById("lowerBound").value;
     const rangeEnd = document.getElementById("upperBound").value;
-    // Assuming you've provided the steps input field with an id of "steps"
     const steps = document.getElementById("steps").value;
 
     const payload = {
@@ -44,6 +68,11 @@ function graph() {
         steps: parseInt(steps),
     };
 
+    // Display the spinner
+    document.getElementById("spinner").style.display = "block";
+
+    const start = Date.now();
+
     fetch('http://localhost:5000/graph', {
         method: 'POST',
         headers: {
@@ -51,13 +80,27 @@ function graph() {
         },
         body: JSON.stringify(payload)
     })
-    .then(response => response.json())
+    .then(response => {
+        // Hide the spinner and overlay if there was an error
+        if (!response.ok) {
+            hideLoading();
+            hideOverlay();
+        }
+        return response.json();
+    })
     .then(data => {
         console.log("Data received from server: ", data);
         drawGraph(data);
+        // Hide the spinner
+        document.getElementById("spinner").style.display = "none";
     })
     .catch(error => {
         // Handle any error that occurred during the request
         console.log("Error fetching data from server: ", error);
+        
+        hideLoading();
+        hideOverlay();
     });
+    showLoading(); // Show the spinner and overlay before making the fetch request
+    showOverlay();
 }
