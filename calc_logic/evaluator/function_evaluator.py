@@ -5,11 +5,19 @@ class FunctionEvaluator:
         pass
        
     functions = {
-        "log": math.log10,
         "sqrt": math.sqrt,
         "sin": math.sin,
         "cos": math.cos,
         "tan": math.tan,
+        "asin": math.asin,
+        "acos": math.acos,
+        "atan": math.atan,
+        "sinh": math.sinh,
+        "cosh": math.cosh,
+        "tanh": math.tanh,
+        "asinh": math.asinh,
+        "acosh": math.acosh,
+        "atanh": math.atanh,
         "sec": lambda x: 1 / math.cos(x),
         "csc": lambda x: 1 / math.sin(x),
         "cot": lambda x: 1 / math.tan(x)

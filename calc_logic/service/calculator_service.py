@@ -1,13 +1,13 @@
 import numpy as np
-from calc_logic.converter.postfix_var_expression_converter import PostfixExpressionConverter
+
 from calc_logic.tokenizer.expression_tokenizer import Tokenizer, Token, TokenType
 from calc_logic.parser.postfix_expression_parser import PostfixExpressionParser
 from calc_logic.evaluator.postfix_expression_evaluator import ExpressionTree
 
 class CalculatorService:
     
-    def __init__(self, converter = PostfixExpressionConverter()):
-       self.converter = converter 
+    def __init__(self):
+        pass
     
     def calculate_expression(self, expression):
         # Convert the infix expression to postfix

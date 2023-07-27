@@ -1,6 +1,4 @@
 from flask import Flask, request, jsonify
-from calc_logic.converter.postfix_var_expression_converter import PostfixExpressionConverter
-from calc_logic.calculator.postfix_var_expression_calculator import ExpressionTree
 from flask_cors import CORS
 from calc_logic.service.calculator_service import CalculatorService
 
@@ -16,11 +14,9 @@ def calculate():
     try:
         expression = data['expression']
         result = calc_service.calculate_expression(expression)
-
-        # Return the result as JSON
+        
         return jsonify({'result': result})
     except Exception as e:
-        # If there's an error, return it as JSON
         return jsonify({'error': str(e)})
 
 @app.route('/graph', methods=['POST'])
@@ -41,17 +37,16 @@ def graph():
         if not isinstance(steps, int):
             raise ValueError("Steps must be an integer.")
         
-        # call calculate_graph function
         data_pairs = calc_service.calculate_graph(func_expression, range_start, range_end, steps)
         return jsonify(data_pairs)
     
-    except ValueError as ve:  # Catch ValueError for invalid input data
-        print(f"Invalid input data: {str(ve)}")  # log the error
-        return jsonify({"error": str(ve)}), 400  # return an error response with status code 400
-    except Exception as e:  # Catch all other exceptions
-        print(f"Error calculating graph: {str(e)}")  # log the error
-        return jsonify({"error": "An error occurred during processing"}), 500  # return an error response with status code 500
+    except ValueError as ve:  
+        print(f"Invalid input data: {str(ve)}")  
+        return jsonify({"error": str(ve)}), 400  
+    except Exception as e:  
+        print(f"Error calculating graph: {str(e)}")  
+        return jsonify({"error": "An error occurred during processing"}), 500  
+    
 
-# main thread
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)  # Or whichever port you prefer
+    app.run(debug=True, port=5000) 
