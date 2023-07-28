@@ -28,12 +28,11 @@ class Tokenizer:
             pos += 1
         return self.expression[start_pos:pos], pos  # Return new position too
 
+    """
+    Break down the expression into a list of Tokens.
+    :return: A list of Tokens representing the expression.
+    """
     def tokenize(self):
-        """
-        Break down the expression into a list of Tokens.
-
-        :return: A list of Tokens representing the expression.
-        """
         pos = 0
         tokens = []
         OPERATORS = {'+', '-', '*', '/', '^'}

@@ -32,12 +32,11 @@ class PostfixExpressionParser:
     def get_operator_precedence(self, operator):
         return OPERATOR_PRECEDENCE.get(operator, Precedence.LOWEST)
 
+    """
+    Convert an infix expression to a postfix expression.
+    :return: A list of Tokens representing the expression in postfix notation.
+    """
     def to_postfix(self):
-        """
-        Convert an infix expression to a postfix expression.
-
-        :return: A list of Tokens representing the expression in postfix notation.
-        """
         output_queue = []
         operator_stack = Stack()
 
@@ -50,11 +49,7 @@ class PostfixExpressionParser:
             # If it's an operator, pop operators from the stack to the queue if they have 
             # higher or equal precedence, then push the current operator to the stack
             elif token.token_type == TokenType.OPERATOR:
-                while not operator_stack.isEmpty() and \
-                      operator_stack.peek().token_type == TokenType.OPERATOR and \
-                      self.get_operator_precedence(token.value) <= self.get_operator_precedence(operator_stack.peek().value):
-                    output_queue.append(operator_stack.pop())
-                operator_stack.push(token)
+                self.parse_operator_tokens(operator_stack, output_queue, token)
 
             # If it's a function or an open parenthesis, push it to the stack
             elif token.token_type == TokenType.FUNCTION or token.token_type == TokenType.OPEN_PAREN:
@@ -63,11 +58,7 @@ class PostfixExpressionParser:
             # If it's a close parenthesis, pop from the stack to the queue until an 
             # open parenthesis is encountered, then discard the open parenthesis
             elif token.token_type == TokenType.CLOSE_PAREN:
-                while not operator_stack.isEmpty() and operator_stack.peek().token_type != TokenType.OPEN_PAREN:
-                    output_queue.append(operator_stack.pop())
-                if operator_stack.isEmpty():
-                    raise ValueError("Mismatched parentheses")
-                operator_stack.pop()  # discard the open parenthesis
+                self.parse_parenthesis_tokens(operator_stack, output_queue)
 
             # End of expression
             elif token.token_type is None:
@@ -80,3 +71,17 @@ class PostfixExpressionParser:
             output_queue.append(operator_stack.pop())
 
         return output_queue
+
+    def parse_operator_tokens(self, operator_stack, output_queue, token):
+        while not operator_stack.isEmpty() and \
+                operator_stack.peek().token_type == TokenType.OPERATOR and \
+                self.get_operator_precedence(token.value) <= self.get_operator_precedence(operator_stack.peek().value):
+            output_queue.append(operator_stack.pop())
+        operator_stack.push(token)
+
+    def parse_parenthesis_tokens(self, operator_stack, output_queue):
+        while not operator_stack.isEmpty() and operator_stack.peek().token_type != TokenType.OPEN_PAREN:
+            output_queue.append(operator_stack.pop())
+        if operator_stack.isEmpty():
+            raise ValueError("Mismatched parentheses")
+        operator_stack.pop()  # discard the open parenthesis
