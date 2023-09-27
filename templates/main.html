@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Calculator App</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
     <div id="calculator">
@@ -11,8 +11,8 @@
         <div id="result"></div>
     </div>
 
-    <button onclick="window.location.href='graph.html'">Graph Functions</button>
+    <button onclick="window.location.href='/graphpage'">Graph Functions</button>
 
-    <script src="script.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

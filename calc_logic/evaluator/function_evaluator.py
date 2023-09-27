@@ -9,8 +9,6 @@ class FunctionEvaluator:
         "sin": math.sin,
         "cos": math.cos,
         "tan": math.tan,
-        "asin": math.asin,
-        "acos": math.acos,
         "atan": math.atan,
         "sinh": math.sinh,
         "cosh": math.cosh,

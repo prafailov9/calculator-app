@@ -24,7 +24,7 @@ class CalculatorService:
         try:
             parser = PostfixExpressionParser(Tokenizer(func_expression))
             postfix_expression = parser.to_postfix()
-                
+            print(postfix_expression)   
             #Return evenly spaced numbers over a specified interval.
             x_values = np.linspace(range_start, range_end, steps)
             results = []
