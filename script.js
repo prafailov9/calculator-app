@@ -10,7 +10,7 @@ function calculate() {
     };
 
     // Send a POST request to the backend server
-    fetch('http://localhost:5000/calculate', {
+    fetch('http://127.0.0.1:5000/calculate', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
