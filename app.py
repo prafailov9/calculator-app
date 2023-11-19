@@ -24,7 +24,6 @@ def calculate():
 @app.route('/graph', methods=['POST'])
 def graph():
     try:
-
         # extract data from the request
         data = request.get_json()
         # validate input data

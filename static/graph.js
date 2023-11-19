@@ -71,7 +71,7 @@ function graph() {
     // Display the spinner
     document.getElementById("spinner").style.display = "block";
 
-    const start = Date.now();
+    const start = performance.now();
 
     fetch('http://127.0.0.1:5000/graph', {
         method: 'POST',
@@ -93,6 +93,9 @@ function graph() {
         drawGraph(data);
         // Hide the spinner
         document.getElementById("spinner").style.display = "none";
+
+        const end = performance.now();
+        console.log(`Request duration: ${(end - start).toFixed(2)} milliseconds`);
     })
     .catch(error => {
         // Handle any error that occurred during the request

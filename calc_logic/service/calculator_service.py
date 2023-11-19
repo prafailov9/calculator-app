@@ -1,4 +1,5 @@
 import numpy as np
+import time
 
 from calc_logic.tokenizer.expression_tokenizer import Tokenizer, Token, TokenType
 from calc_logic.parser.postfix_expression_parser import PostfixExpressionParser
@@ -28,12 +29,15 @@ class CalculatorService:
             x_values = np.linspace(range_start, range_end, steps)
             results = []
             
+            start = time.perf_counter()
             # Calculate the result for each x value
             for x in x_values:
                 postfix_expression_for_x = self.substitute_variable(postfix_expression, x)
                 tree = ExpressionTree(postfix_expression_for_x)
                 results.append(tree.evaluate())
-                
+
+            end = time.perf_counter()
+            print(f"calculation of {steps} took: {end - start} seconds")    
             # Combine x_values and results into pairs for the graph
             data_pairs = list(zip(x_values.tolist(), results))
 
