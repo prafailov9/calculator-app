@@ -16,13 +16,6 @@ class Precedence(Enum):
     POWER = 4
     HIGHEST = 5
 
-    # automatically called when using <= on the Precedence
-    def __le__(self, other):
-        if self.__class__ is other.__class__:
-            return self.value <= other.value
-        return NotImplemented
-
-
 # Define the precedence for the operators
 OPERATOR_PRECEDENCE = {
     '+': Precedence.ADDSUB,
@@ -32,7 +25,6 @@ OPERATOR_PRECEDENCE = {
     '^': Precedence.POWER
 }
 
-
 class PostfixExpressionParser:
     """
     parser containing logic to convert infix to postfix notation using given tokenizer
@@ -40,10 +32,6 @@ class PostfixExpressionParser:
 
     def __init__(self, tokenizer):
         self.tokenizer = tokenizer
-
-    def get_operator_precedence(self, operator):
-        """return precedence of given operator"""
-        return OPERATOR_PRECEDENCE.get(operator, Precedence.LOWEST)
 
     def to_postfix(self):
         """
@@ -59,7 +47,7 @@ class PostfixExpressionParser:
             if token.token_type == TokenType.NUMBER or token.token_type == TokenType.VARIABLE:
                 output_queue.append(token)
 
-            # If it's an operator, pop operators from the stack to the queue if they have
+            # If it's an operator, pop operators from the stack to the output if they have
             # higher or equal precedence, then push the current operator to the stack
             elif token.token_type == TokenType.OPERATOR:
                 self.parse_operator_tokens(operator_stack, output_queue, token)
@@ -68,7 +56,7 @@ class PostfixExpressionParser:
             elif token.token_type == TokenType.FUNCTION or token.token_type == TokenType.OPEN_PAREN:
                 operator_stack.push(token)
 
-            # If it's a close parenthesis, pop from the stack to the queue until an
+            # If it's a close parenthesis, pop from the stack to the output until an
             # open parenthesis is encountered, then discard the open parenthesis
             elif token.token_type == TokenType.CLOSE_PAREN:
                 self.parse_parenthesis_tokens(operator_stack, output_queue)
@@ -89,9 +77,11 @@ class PostfixExpressionParser:
         """
         return: parsed tokens for an operator
         """
+        # since postfix expressions are evaluated from left to right, 
+        # higher precedence operators are parsed first to maintain correct order of operations.
         while not operator_stack.isEmpty() and \
                 operator_stack.peek().token_type == TokenType.OPERATOR and \
-                self.get_operator_precedence(token.value) <= self.get_operator_precedence(operator_stack.peek().value):
+                OPERATOR_PRECEDENCE.get(token.value).value <= OPERATOR_PRECEDENCE.get(operator_stack.peek().value).value:
             output_queue.append(operator_stack.pop())
         operator_stack.push(token)
 
