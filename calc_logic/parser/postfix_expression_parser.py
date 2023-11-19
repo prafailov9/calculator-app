@@ -32,8 +32,6 @@ OPERATOR_PRECEDENCE = {
     '^': Precedence.POWER
 }
 
-# RPN parser to convert infix to postfix notation using the shunting yard algorithm.
-
 
 class PostfixExpressionParser:
     """

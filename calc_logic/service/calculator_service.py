@@ -37,7 +37,7 @@ class CalculatorService:
                 results.append(tree.evaluate())
 
             end = time.perf_counter()
-            print(f"calculation of {steps} took: {end - start} seconds")    
+            print(f"calculation of {steps} steps took: {end - start} seconds")    
             # Combine x_values and results into pairs for the graph
             data_pairs = list(zip(x_values.tolist(), results))
 
