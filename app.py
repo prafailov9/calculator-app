@@ -1,7 +1,6 @@
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 from calc_logic.service.calculator_service import CalculatorService
-import time
 
 app = Flask(__name__)
 CORS(app)  # This will enable CORS for all routes
