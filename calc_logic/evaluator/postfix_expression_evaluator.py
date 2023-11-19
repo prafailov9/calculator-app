@@ -1,18 +1,14 @@
-from enum import Enum
 from calc_logic.tokenizer.expression_tokenizer import TokenType
-from calc_logic.parser.postfix_expression_parser import PostfixExpressionParser
-from calc_logic.tokenizer.expression_tokenizer import Tokenizer
 from calc_logic.data_structs.stack import Stack
 from calc_logic.evaluator.function_evaluator import FunctionEvaluator
 from calc_logic.evaluator.arithmetic_evaluator import ArithmeticEvaluator
-import math
 
 trig_evaluator = FunctionEvaluator()
 arith_evaluator = ArithmeticEvaluator()
 
 class ExpressionNode:
     def __init__(self, token_type, value, left=None, right=None):
-        self.token_type = token_type
+        self.token_type = token_type 
         self.value = value
         self.left = left
         self.right = right
@@ -45,10 +41,13 @@ class ExpressionTree:
                     left_node = stack.pop()
                 else:  # for function there is only one operand
                     left_node = None
+                
                 stack.push(ExpressionNode(token.token_type, token.value, left_node, right_node))
             else:
                 raise ValueError(f"Invalid token {token.value}")
+            
         return stack.pop()
 
     def evaluate(self):
         return self.root.evaluate()
+    
