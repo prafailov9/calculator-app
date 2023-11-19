@@ -102,3 +102,6 @@ class PostfixExpressionParser:
         # then add the function to the output
         if operator_stack.peek().token_type == TokenType.FUNCTION:
             output_queue.append(operator_stack.pop())
+
+
+#sin(x+1)+sin(2^(21-x)^cos(11+3^x))
