@@ -25,12 +25,13 @@ class CalculatorService:
         try:
             parser = PostfixExpressionParser(Tokenizer(func_expression))
             postfix_expression = parser.to_postfix()  
-            #Return evenly spaced numbers over a specified interval.
+
+            # return evenly spaced numbers over a specified interval(steps).
             x_values = np.linspace(range_start, range_end, steps)
             results = []
             
+            # calculate the result for each x value
             start = time.perf_counter()
-            # Calculate the result for each x value
             for x in x_values:
                 postfix_expression_for_x = self.substitute_variable(postfix_expression, x)
                 tree = ExpressionTree(postfix_expression_for_x)
@@ -38,7 +39,7 @@ class CalculatorService:
 
             end = time.perf_counter()
             print(f"calculation of {steps} steps took: {end - start} seconds")    
-            # Combine x_values and results into pairs for the graph
+            # combine x_values and results into pairs for the graph
             data_pairs = list(zip(x_values.tolist(), results))
 
             return data_pairs
