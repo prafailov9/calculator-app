@@ -101,13 +101,16 @@ class PostfixExpressionParser:
         """
         return: parsed tokens in parenthisis
         """
+        # while the current operator at the top of the op_stack is 
+        # not an open parenthesis - append the operator to the output and remove it from the op_stack
         while not operator_stack.isEmpty() and operator_stack.peek().token_type != TokenType.OPEN_PAREN:
             output_queue.append(operator_stack.pop())
         if operator_stack.isEmpty():
             raise ValueError("Mismatched parentheses")
         operator_stack.pop()  # discard the open parenthesis
 
-        # after appending the parenthesis subexpression 
-        # to the queue, we need to check if those parenthesis where part of a function
+        # after appending the parenthesis' subexpression to the output 
+        # check if those parenthesis where part of a function
+        # then add the function to the output
         if operator_stack.peek().token_type == TokenType.FUNCTION:
             output_queue.append(operator_stack.pop())
