@@ -85,8 +85,6 @@ class PostfixExpressionParser:
                 raise ValueError("Mismatched parentheses")
             output_queue.append(operator_stack.pop())
 
-        for token in output_queue:
-            print(f"parsed expressing :{token.value}")
         return output_queue
 
     def parse_operator_tokens(self, operator_stack, output_queue, token):

@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 from calc_logic.service.calculator_service import CalculatorService
+import time
 
 app = Flask(__name__)
 CORS(app)  # This will enable CORS for all routes
@@ -23,6 +24,7 @@ def calculate():
 @app.route('/graph', methods=['POST'])
 def graph():
     try:
+
         # extract data from the request
         data = request.get_json()
         # validate input data
@@ -38,8 +40,11 @@ def graph():
         if not isinstance(steps, int):
             raise ValueError("Steps must be an integer.")
 
+        print(f"expr: {func_expression}, range_start: {range_start}, range_end: {range_end}, steps: {steps}")
+
         data_pairs = calc_service.calculate_graph(
             func_expression, range_start, range_end, steps)
+
         return jsonify(data_pairs)
 
     except ValueError as ve:

@@ -23,20 +23,16 @@ class CalculatorService:
     def calculate_graph(self, func_expression, range_start, range_end, steps):
         try:
             parser = PostfixExpressionParser(Tokenizer(func_expression))
-            postfix_expression = parser.to_postfix()
-            print(postfix_expression)   
+            postfix_expression = parser.to_postfix()  
             #Return evenly spaced numbers over a specified interval.
             x_values = np.linspace(range_start, range_end, steps)
             results = []
-            print(x_values)
+            
             # Calculate the result for each x value
             for x in x_values:
-                print(f"substitute for {x}")
                 postfix_expression_for_x = self.substitute_variable(postfix_expression, x)
                 tree = ExpressionTree(postfix_expression_for_x)
-                print("eval tree")
                 results.append(tree.evaluate())
-                print(f"current results = {results}")
                 
             # Combine x_values and results into pairs for the graph
             data_pairs = list(zip(x_values.tolist(), results))
