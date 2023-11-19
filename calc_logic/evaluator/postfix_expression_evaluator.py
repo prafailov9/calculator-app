@@ -32,6 +32,9 @@ class ExpressionTree:
         self.root = self.build_tree(postfix_tokens)
 
     def build_tree(self, postfix_tokens):
+        print("Building tree for postfix expression: ")
+        print(' '.join(str(x.value) for x in postfix_tokens))
+
         stack = Stack()
         for token in postfix_tokens:
             if token.token_type in (TokenType.NUMBER, TokenType.VARIABLE):

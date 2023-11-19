@@ -72,4 +72,5 @@ class Tokenizer:
                 raise ValueError("Invalid character: '{}'".format(current_char))
 
         tokens.append(Token(None))
+
         return tokens

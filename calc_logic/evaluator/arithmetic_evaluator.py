@@ -13,7 +13,5 @@ class ArithmeticEvaluator:
     }
         
     def eval_expression(self, val1, val2, op):
-        if op == "^":
-            return self.operators[op](val2, val1)
         return self.operators[op](val1, val2)
 

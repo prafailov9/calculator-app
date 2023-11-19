@@ -18,7 +18,7 @@ class CalculatorService:
         # Build the expression tree and calculate the result
         tree = ExpressionTree(postfix_expression)
         result = tree.evaluate()
-        print(f"result is = {result}")
+        print(f"result = {result}")
         return result
     
     def calculate_graph(self, func_expression, range_start, range_end, steps):

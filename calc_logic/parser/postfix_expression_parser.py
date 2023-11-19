@@ -106,3 +106,8 @@ class PostfixExpressionParser:
         if operator_stack.isEmpty():
             raise ValueError("Mismatched parentheses")
         operator_stack.pop()  # discard the open parenthesis
+
+        # after appending the parenthesis subexpression 
+        # to the queue, we need to check if those parenthesis where part of a function
+        if operator_stack.peek().token_type == TokenType.FUNCTION:
+            output_queue.append(operator_stack.pop())
